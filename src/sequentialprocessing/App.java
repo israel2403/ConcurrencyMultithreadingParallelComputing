@@ -13,11 +13,16 @@ class Runner1 implements Runnable {
     }
 }
 
-class Runner2 {
+class Runner2 implements Runnable {
     public void execute() {
         for (int i = 0; i < 10; i++) {
             System.out.println("Runner2: " + i);
         }
+    }
+
+    @Override
+    public void run() {
+        execute();
     }
 }
 
