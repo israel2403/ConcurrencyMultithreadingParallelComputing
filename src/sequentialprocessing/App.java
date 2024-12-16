@@ -1,10 +1,15 @@
 package sequentialprocessing;
 
-class Runner1 {
+class Runner1 implements Runnable {
     public void execute() {
         for (int i = 0; i < 10; i++) {
             System.out.println("Runner1: " + i);
         }
+    }
+
+    @Override
+    public void run() {
+        execute();
     }
 }
 
