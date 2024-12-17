@@ -3,6 +3,11 @@ package sequentialprocessing;
 class Runner1 extends Thread {
     public void execute() {
         for (int i = 0; i < 10; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("Runner1: " + i);
         }
     }
@@ -16,6 +21,11 @@ class Runner1 extends Thread {
 class Runner2 extends Thread {
     public void execute() {
         for (int i = 0; i < 10; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("Runner2: " + i);
         }
     }
