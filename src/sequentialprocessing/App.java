@@ -1,19 +1,45 @@
 package sequentialprocessing;
 
-class WorkerThread implements Runnable {
-    @Override
-    public void run() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i);
-        }
-    }
-}
 
 public class App {
+
+    public static int counter = 0;
+
+    public static synchronized void increment(){
+        counter++;
+    }
+
+    public static void process(){
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    increment();
+                }
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 100; i++) {
+                    increment();
+                }
+            }
+        });
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("The counter is: " + counter);
+    }
+
     public static void main(String[] args) {
-        Thread t = new Thread(new WorkerThread());
-        t.setPriority(Thread.MAX_PRIORITY);
-        t.start();
-        System.out.println("This is in the main thread...");
+        process();
     }
 }
